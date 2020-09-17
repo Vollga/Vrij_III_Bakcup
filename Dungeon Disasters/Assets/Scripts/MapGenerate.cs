@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MapGenerate : MonoBehaviour
 {
-
-
     // Runner Variants
-    
+
     public static Room[,] RunnerBasic(Room[,] dungeon, Vector2 runnerPosCurrent, int runnerDistance) //Runner with random direction, can go back on itself
     {
         // Set given position as true
@@ -36,7 +32,7 @@ public class MapGenerate : MonoBehaviour
 
         return dungeon;
     }
-    
+
     public static Room[,] RunnerNoBacktrack(Room[,] dungeon, Vector2 runnerPosCurrent, int runnerDistance, Vector2 previousDirection) //Runner that can't go back on itself
     {
         // Set given position as true
@@ -109,40 +105,63 @@ public class MapGenerate : MonoBehaviour
 
 
     // Special Room Generators
-
     public static Room[,] PlaceStart(Room[,] dungeon)
     {
+        bool startIsPlaced = false;
+
         for (int iZ = 0; iZ < dungeon.GetLength(1); iZ++)
         {
             for (int iX = 0; iX < dungeon.GetLength(0); iX++)
             {
+                if (dungeon[iX, iZ + 1].isEnabled && (dungeon[iX, iZ + 1].ID == 0))
+                {
+                    dungeon[iX, iZ].Enable();
+                    dungeon[iX, iZ].ID = 1;     // Set ID to "Entrance"
+                    startIsPlaced = true;
+                    break;
+                }
 
             }
+            if (startIsPlaced)
+            {
+                break;
+            }
         }
-
-
-
 
         return dungeon;
     }
 
-    // Generate Room IDs
 
-    public static Room[,] AssignRoom(Room[,] dungeon, DungeonDict roomSet)
+    public static Room[,] PlaceSpecial(Room[,] dungeon)
     {
-        for (int iZ = 0; iZ < dungeon.GetLength(1); iZ++)
+        int dir = Random.Range(0, 3); // Generate a random side to place the boss room at (0: Left, 1: Top, 2: Right)
+
+        switch (dir)
         {
-            for (int iX = 0; iX < dungeon.GetLength(0); iX++)
-            {
-                dungeon[iX, iZ].roomAsset = roomSet.CornerUpRight[Random.Range(0,roomSet.CornerUpRight.Length)];
-            }
+            case 0: //Left Side
+                RoomFunctions.SetSpecialRoomLeft(dungeon, 2);
+                RoomFunctions.SetSpecialRoomTop(dungeon, 0);
+                RoomFunctions.SetSpecialRoomRight(dungeon, 0);
+                break;
+
+            case 1: //Top Side
+                RoomFunctions.SetSpecialRoomLeft(dungeon, 0);
+                RoomFunctions.SetSpecialRoomTop(dungeon, 2);
+                RoomFunctions.SetSpecialRoomRight(dungeon, 0);
+                break;
+
+            case 2: //Right Side
+                RoomFunctions.SetSpecialRoomLeft(dungeon, 0);
+                RoomFunctions.SetSpecialRoomTop(dungeon, 0);
+                RoomFunctions.SetSpecialRoomRight(dungeon, 2);
+                break;
         }
+
         return dungeon;
     }
 
 
     // Additional Functions
-
     public static Vector2 RandomDirVector() //Generate a random direction
     {
         Vector2 newDirection = new Vector2();

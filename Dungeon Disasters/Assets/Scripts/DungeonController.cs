@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class DungeonController : MonoBehaviour
@@ -71,9 +70,12 @@ public class DungeonController : MonoBehaviour
         }
 
         // Add extra Rooms to array
+        MapGenerate.PlaceStart(dungeon);
+        MapGenerate.PlaceSpecial(dungeon);
+
 
         // Assign Room Assets
-        MapGenerate.AssignRoom(dungeon, roomSet);
+        RoomFunctions.AssignRoomTypes(dungeon, roomSet);
 
         // Place Placeholders
         roomsList = DungeonSpawner.DrawLayout(dungeon, this.transform.position, this.transform, drawEmptyRooms, emptyTile);
