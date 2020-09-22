@@ -339,6 +339,7 @@ GameObject:
   - component: {fileID: 673233529}
   - component: {fileID: 673233528}
   - component: {fileID: 673233531}
+  - component: {fileID: 673233532}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -377,10 +378,10 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 1
+  near clip plane: 1
+  far clip plane: 500
+  field of view: 40
+  orthographic: 0
   orthographic size: 8
   m_Depth: -1
   m_CullingMask:
@@ -477,7 +478,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   volumeAnchorOverride: {fileID: 0}
-  antialiasing: 0
+  antialiasing: 3
   SMAAQuality: 2
   dithering: 0
   stopNaNs: 0
@@ -516,6 +517,46 @@ MonoBehaviour:
       data1: 0
       data2: 0
   defaultFrameSettings: 0
+--- !u!114 &673233532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673233527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8a636f62116c0a40bbfefdf876d4608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boost: 3.5
+  positionLerpTime: 0.2
+  mouseSensitivityCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.5
+      inSlope: 0
+      outSlope: 5
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 2.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rotationLerpTime: 0.01
+  invertY: 0
 --- !u!1 &779142395
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,10 +586,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1ee5dbf441d25644b1050fd04e2813d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 390612476331972923, guid: a9cad44c0eb7db245bc2a06cb5469cdd, type: 3}
+  tile: {fileID: 4851053201267728973, guid: ae35a67f6dad7b04bbbbdce1e6a5d219, type: 3}
   roomSet: {fileID: 11400000, guid: 287cee9bb9a49b04188ca5fc1dd65d3e, type: 2}
-  gridsize: 16
-  drawEmptyRooms: 1
+  gridSize: 16
+  tileSize: 3
+  roomSize: 16
+  drawEmptyRooms: 0
+  drawBasic: 1
   emptyTile: {fileID: 7763909774282963703, guid: 22c15a47ad369ee429c0f50a950851f2, type: 3}
   runners: 3
   maxDistance: 12

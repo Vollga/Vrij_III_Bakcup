@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DungeonSpawner : MonoBehaviour
 {
-    public static List<GameObject> DrawBasic(Room[,] dungeon, GameObject tilePrefab, Vector3 spawnOffset, Transform parentTransform, bool fillEmpty, GameObject emptyTile)
+    public static List<GameObject> DrawBasic(Room[,] dungeon, GameObject tilePrefab, Vector3 spawnOffset, int roomSize, Transform parentTransform, bool fillEmpty, GameObject emptyTile)
     {
         List<GameObject> roomsList = new List<GameObject>();
         GameObject emptySquares = new GameObject("Empty Rooms");
@@ -22,7 +22,7 @@ public class DungeonSpawner : MonoBehaviour
             {
                 if (dungeon[iX, iZ].isEnabled == true)
                 {
-                    var newRoom = Instantiate(tilePrefab, new Vector3(iX - (dungeon.GetLength(0) / 2) + spawnOffset.x, 0, iZ - (dungeon.GetLength(1) / 2) + spawnOffset.z), Quaternion.identity);
+                    var newRoom = Instantiate(tilePrefab, new Vector3((iX - (dungeon.GetLength(0) / 2) + spawnOffset.x)*roomSize, 0, (iZ - (dungeon.GetLength(1) / 2) + spawnOffset.z)*roomSize), Quaternion.identity);
                     newRoom.transform.parent = parentTransform;
                     roomsList.Add(newRoom);
                 } else if ( fillEmpty == true)
